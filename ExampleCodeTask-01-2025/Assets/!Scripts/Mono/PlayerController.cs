@@ -3,14 +3,16 @@ using System;
 using System.Threading;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     private const float SPEED_MULTIPLIER = 10f;
     private const float ROTATION_SPEED = 10f;
     private const float JUMP_HEIGHT = 6f;
     private const float IS_GROUNDED_MINIMAL_VELOCITY = 0.01f;
+    private const float DEATH_ANIMATION_DOWN_HEIGHT = 1.05f;
+    private const float DEATH_ANIMATION_TIME = 2f;
 
-    [SerializeField] private Camera _camera;
     [SerializeField] private Transform _mesh;
 
     private Rigidbody _rigidbody;
@@ -24,10 +26,32 @@ public class PlayerController : MonoBehaviour
     private bool _moving = false;
     private bool _isGrounded = false;
 
+    public bool Moving => _moving;
+
+    public void ResetBall()
+    {
+        _cts.Cancel();
+        _cts.Dispose();
+        _cts = new();
+
+        _canMove = true;
+        _canJump = true;
+        _moving = false;
+        _isGrounded = false;
+        _rigidbody.useGravity = true;
+        _rigidbody.isKinematic = false;
+        _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+    }
+
+    public void ProcessDeath()
+    {
+        DeathTask().Forget();
+    }
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _cachedCameraTransform = _camera.transform;
+        _cachedCameraTransform = Camera.main.transform;
         _cachedTransform = transform;
     }
 
@@ -35,11 +59,30 @@ public class PlayerController : MonoBehaviour
     {
         _isGrounded = Mathf.Abs(_rigidbody.linearVelocity.y) < IS_GROUNDED_MINIMAL_VELOCITY;
 
+        MoveBall();
+        RotateBall();
+
+        _cachedCameraTransform.LookAt(_cachedTransform, Vector3.up);
+    }
+
+    private void OnDestroy()
+    {
+        _cts.Cancel();
+        _cts.Dispose();
+    }
+
+    private void MoveBall()
+    {
+        if (!_canMove)
+        {
+            return;
+        }
+
         Vector3 forward = _cachedTransform.forward;
         Vector3 right = _cachedTransform.right;
 
-        float moveVertical = _canMove ? Input.GetAxis("Vertical") : 0;
-        float moveHorizontal = _canMove ? Input.GetAxis("Horizontal") : 0;
+        float moveVertical = Input.GetAxis("Vertical");
+        float moveHorizontal = Input.GetAxis("Horizontal");
 
         _moving = !Mathf.Approximately(moveHorizontal, 0) ||
             !Mathf.Approximately(moveVertical, 0);
@@ -51,6 +94,20 @@ public class PlayerController : MonoBehaviour
             _rigidbody.AddForce(moveDirection, ForceMode.VelocityChange);
         }
 
+        if (_isGrounded && _canJump)
+        {
+            bool jumped = Input.GetAxis("Jump") > 0f;
+
+            if (jumped)
+            {
+                _rigidbody.AddForce(Vector3.up * JUMP_HEIGHT, ForceMode.Impulse);
+                JumpTask().Forget();
+            }
+        }
+    }
+
+    private void RotateBall()
+    {
         if (!Mathf.Approximately(0f, _rigidbody.linearVelocity.magnitude))
         {
             Vector3 rotateDirection = ROTATION_SPEED *
@@ -59,22 +116,9 @@ public class PlayerController : MonoBehaviour
                 new Vector3(_rigidbody.linearVelocity.z, _rigidbody.linearVelocity.y, _rigidbody.linearVelocity.x);
             _mesh.Rotate(rotateDirection, Space.World);
         }
-
-        if (_isGrounded && _canJump)
-        {
-            bool jumped = _canMove && Input.GetAxis("Jump") > 0f;
-
-            if (jumped)
-            {
-                _rigidbody.AddForce(Vector3.up * JUMP_HEIGHT, ForceMode.Impulse);
-                BlockJump().Forget();
-            }
-        }
-
-        _cachedCameraTransform.LookAt(_cachedTransform, Vector3.up);
     }
 
-    private async UniTask BlockJump()
+    private async UniTask JumpTask()
     {
         _canJump = false;
 
@@ -90,9 +134,35 @@ public class PlayerController : MonoBehaviour
         _canJump = true;
     }
 
-    private void OnDestroy()
+    private async UniTask DeathTask()
     {
-        _cts.Cancel();
-        _cts.Dispose();
+        _canMove = false;
+        _rigidbody.useGravity = false;
+        _rigidbody.angularVelocity = Vector3.zero;
+        _rigidbody.linearVelocity = Vector3.zero;
+        _rigidbody.interpolation = RigidbodyInterpolation.None;
+        _rigidbody.isKinematic = true;
+
+        float timer = DEATH_ANIMATION_TIME;
+        Vector3 initialPos = _cachedTransform.position;
+        Vector3 deadPos = _cachedTransform.position -
+            new Vector3(0, DEATH_ANIMATION_DOWN_HEIGHT);
+
+        while (timer > 0f)
+        {
+            try
+            {
+                await UniTask.Yield(cancellationToken: _cts.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                return;
+            }
+
+            timer -= Time.deltaTime;
+            timer = Mathf.Clamp(timer, 0, float.MaxValue);
+            _cachedTransform.position = Vector3.Lerp(deadPos, initialPos,
+                timer / DEATH_ANIMATION_TIME);
+        }
     }
 }
