@@ -9,7 +9,8 @@ public class UIModelMenu : UIModel<UIViewMenu>
     [Inject] private UIModelAbout _aboutModel;
     [Inject] private UIModelSettings _settingsModel;
     [Inject] private UIModelPopup _popupModel;
-    [Inject] private UIModelHud _hudModel;
+    [Inject] private IGameCycleSystem _gameCycleSystem;
+    [Inject] private IGameScoreSystem _gameScoreSystem;
 
     public override void OnInit()
     {
@@ -21,13 +22,12 @@ public class UIModelMenu : UIModel<UIViewMenu>
 
     public override void OnShow()
     {
-        _view.SetHiScoreText("Рекорд: 1222");
+        _view.SetHiScoreText($"Рекорд: {_gameScoreSystem.HiScore}");
     }
 
     public void Start()
     {
-        _uiSystem.Hide(this).Forget();
-        _uiSystem.Show(_hudModel).Forget();
+        _gameCycleSystem.StartGame();
     }
 
     public void OpenSettings()

@@ -5,24 +5,28 @@ public class UIModelPause : UIModel<UIViewPause>
 {
     public override string ViewName => "UI/Pause";
 
-    [Inject] private UIModelAbout _aboutModel;
     [Inject] private UIModelSettings _settingsModel;
     [Inject] private UIModelPopup _popupModel;
     [Inject] private UIModelHud _hudModel;
-    [Inject] private UIModelGameOver _gameOverModel;
+    [Inject] private IGameCycleSystem _gameCycleSystem;
 
     public override void OnInit()
     {
-        _view.OnAuthorClick += OpenAuthorPage;
         _view.OnExitClick += OpenExitConfirmation;
         _view.OnSettingsClick += OpenSettings;
         _view.OnStartClick += Start;
+    }
+
+    public override void OnShow()
+    {
+        _gameCycleSystem.SetPause(true);
     }
 
     public void Start()
     {
         _uiSystem.Hide(this).Forget();
         _uiSystem.Show(_hudModel).Forget();
+        _gameCycleSystem.SetPause(false);
     }
 
     public void OpenSettings()
@@ -30,12 +34,6 @@ public class UIModelPause : UIModel<UIViewPause>
         _uiSystem.Hide(this).Forget();
         _settingsModel.SetModelToOpenAfterClose(this);
         _uiSystem.Show(_settingsModel).Forget();
-    }
-
-    public void OpenAuthorPage()
-    {
-        _uiSystem.Hide(this).Forget();
-        _uiSystem.Show(_aboutModel).Forget();
     }
 
     public void OpenExitConfirmation()
@@ -46,8 +44,7 @@ public class UIModelPause : UIModel<UIViewPause>
             "Действительно хотите выйти в меню?",
             () =>
             {
-                // TODO: автосмерть
-                _uiSystem.Show(_gameOverModel).Forget();
+                _gameCycleSystem.EndGame();
             },
             () =>
             {

@@ -1,10 +1,10 @@
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 using Zenject;
 
 public class UIModelHud : UIModel<UIViewHud>
 {
     [Inject] private UIModelPause _pause;
+    [Inject] private IGameScoreSystem _scoreSystem;
 
     public override string ViewName => "UI/Hud";
 
@@ -13,9 +13,25 @@ public class UIModelHud : UIModel<UIViewHud>
         _view.OnMenuClick += OpenPause;
     }
 
-    public void OpenPause()
+    public override void OnShow()
+    {
+        UpdateScore(_scoreSystem.Score);
+        _scoreSystem.OnScoreChanged += UpdateScore;
+    }
+
+    public override void OnHide()
+    {
+        _scoreSystem.OnScoreChanged -= UpdateScore;
+    }
+
+    private void OpenPause()
     {
         _uiSystem.Hide(this).Forget();
         _uiSystem.Show(_pause).Forget();
+    }
+
+    private void UpdateScore(int score)
+    {
+        _view.SetScoreText(score.ToString());
     }
 }

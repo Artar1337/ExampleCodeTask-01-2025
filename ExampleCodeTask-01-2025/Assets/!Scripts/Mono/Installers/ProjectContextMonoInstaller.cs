@@ -15,6 +15,9 @@ public class ProjectContextMonoInstaller : MonoInstaller
     {
         Container.BindInterfacesTo<ResourcesSystem>().AsSingle();
         Container.BindInterfacesTo<InputSystem>().AsSingle();
+        Container.BindInterfacesTo<PlayerMovementSystem>().AsSingle();
+        Container.BindInterfacesTo<GameCycleSystem>().AsSingle();
+        Container.BindInterfacesTo<GameScoreSystem>().AsSingle();
         Container.BindInterfacesTo<UISystem>().
             FromInstance(new UISystem(_uiSystemMediator)).AsSingle();
     }
