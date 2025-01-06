@@ -20,7 +20,7 @@ public abstract class UIModel<T> : IUIModel where T : UIView
 
     public bool Shown => _uiSystem.IsShown(this);
 
-    public virtual string ViewName { get; } = null;
+    public abstract string ViewName { get; }
 
     public virtual void OnShow()
     {
@@ -78,10 +78,11 @@ public abstract class UIModel<T> : IUIModel where T : UIView
 
         if (_view == null)
         {
-            Debug.LogError($"Init failed: view ({ViewName}, {typeof(T)}) is null");
+            Debug.LogError($"{typeof(T)}: init failed: view (asset name: '{ViewName}') is null");
+            return;
         }
 
-        _view.OnClickClose += Close;
+        _view.OnCloseClick += Close;
 
         OnInit();
 

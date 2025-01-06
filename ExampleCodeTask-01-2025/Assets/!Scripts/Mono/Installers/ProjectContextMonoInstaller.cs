@@ -21,6 +21,9 @@ public class ProjectContextMonoInstaller : MonoInstaller
 
     public void InstallUI()
     {
-
+        Container.BindInterfacesAndSelfTo<UIModelLoading>().AsSingle();
+        Container.BindInterfacesAndSelfTo<UIModelAbout>().AsSingle();
+        Container.BindInterfacesAndSelfTo<UIModelMenu>().AsSingle();
+        Container.BindInterfacesAndSelfTo<UIModelGameOver>().AsSingle();
     }
 }

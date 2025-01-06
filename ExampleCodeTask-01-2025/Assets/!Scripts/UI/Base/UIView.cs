@@ -3,12 +3,12 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIView : MonoBehaviour
+public abstract class UIView : MonoBehaviour
 {
     [Header("Close buttons")]
     [SerializeField] private Button[] _closeButtons;
 
-    public event Action OnClickClose;
+    public event Action OnCloseClick;
 
     private void Awake()
     {
@@ -19,17 +19,19 @@ public class UIView : MonoBehaviour
 
         foreach (var b in _closeButtons)
         {
-            b.onClick.AddListener(() => OnClickClose?.Invoke());
+            b.onClick.AddListener(() => OnCloseClick?.Invoke());
         }
     }
 
-    public virtual async UniTask Show()
+    public virtual UniTask Show()
     {
         gameObject.SetActive(true);
+        return UniTask.CompletedTask;
     }
 
-    public virtual async UniTask Hide()
+    public virtual UniTask Hide()
     {
         gameObject.SetActive(false);
+        return UniTask.CompletedTask;
     }
 }
