@@ -25,5 +25,9 @@ public class ProjectContextMonoInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<UIModelAbout>().AsSingle();
         Container.BindInterfacesAndSelfTo<UIModelMenu>().AsSingle();
         Container.BindInterfacesAndSelfTo<UIModelGameOver>().AsSingle();
+        Container.BindInterfacesAndSelfTo<UIModelPause>().AsSingle();
+        Container.BindInterfacesAndSelfTo<UIModelHud>().AsSingle();
+        Container.BindInterfacesAndSelfTo<UIModelPopup>().AsSingle();
+        Container.BindInterfacesAndSelfTo<UIModelSettings>().AsSingle();
     }
 }

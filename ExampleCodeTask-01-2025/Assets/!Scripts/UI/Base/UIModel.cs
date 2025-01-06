@@ -62,11 +62,6 @@ public abstract class UIModel<T> : IUIModel where T : UIView
         OnHide();
     }
 
-    private void Close()
-    {
-        _uiSystem.Hide(this);
-    }
-
     private async UniTask Init()
     {
         if (_view != null)
@@ -81,8 +76,6 @@ public abstract class UIModel<T> : IUIModel where T : UIView
             Debug.LogError($"{typeof(T)}: init failed: view (asset name: '{ViewName}') is null");
             return;
         }
-
-        _view.OnCloseClick += Close;
 
         OnInit();
 
