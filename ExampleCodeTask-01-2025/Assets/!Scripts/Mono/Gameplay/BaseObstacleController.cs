@@ -24,4 +24,9 @@ public abstract class BaseObstacleController : MonoBehaviour
             _activated = true;
         }
     }
+
+    private void OnDisable()
+    {
+        _activated = false;
+    }
 }

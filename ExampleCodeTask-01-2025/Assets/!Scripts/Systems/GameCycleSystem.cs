@@ -19,6 +19,7 @@ public class GameCycleSystem : IGameCycleSystem
     [Inject] private IResourcesSystem _resources;
     [Inject] private IUISystem _uiSystem;
     [Inject] private IGameScoreSystem _scoreSystem;
+    [Inject] private ILevelSystem _levelSystem;
     [Inject] private UIModelGameOver _gameOverModel;
     [Inject] private UIModelHud _hudModel;
 
@@ -43,7 +44,6 @@ public class GameCycleSystem : IGameCycleSystem
         // Load player
         var player = await _resources.Instantiate<PlayerMovementMediator>("Player");
         _playerMovementSystem.Init(player);
-        // Load 'lobby' level
     }
 
     public void SetPause(bool paused)
@@ -68,6 +68,7 @@ public class GameCycleSystem : IGameCycleSystem
         _uiSystem.Show(_hudModel).Forget();
         // Reset player
         _playerMovementSystem.ResetBall();
-        // Load 'lobby' level
+        // Load level
+        _levelSystem.Generate(new Vector3(0, -2, 0));
     }
 }

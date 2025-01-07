@@ -131,7 +131,7 @@ public class PlayerMovementSystem : IPlayerMovementSystem, ITickable
             Vector3 rotateDirection = ROTATION_SPEED *
                 SPEED_MULTIPLIER *
                 Time.deltaTime *
-                new Vector3(_rigidbody.linearVelocity.z, _rigidbody.linearVelocity.y, _rigidbody.linearVelocity.x);
+                new Vector3(_rigidbody.linearVelocity.z, _rigidbody.linearVelocity.y, -_rigidbody.linearVelocity.x);
             _playerMesh.Rotate(rotateDirection, Space.World);
         }
     }
