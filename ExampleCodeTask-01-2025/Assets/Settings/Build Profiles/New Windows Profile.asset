@@ -37,7 +37,7 @@ MonoBehaviour:
     - line: '|   useOnDemandResources: 0'
     - line: '|   accelerometerFrequency: 60'
     - line: '|   companyName: ArtarProduction'
-    - line: '|   productName: ExampleCodeTask-01-2025'
+    - line: '|   productName: Lava ball'
     - line: '|   defaultCursor: {instanceID: 0}'
     - line: '|   cursorHotspot: {x: 0, y: 0}'
     - line: '|   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b:
@@ -165,7 +165,7 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 0.1.0'
+    - line: '|   bundleVersion: 1.0.0'
     - line: '|   preloadedAssets: []'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
@@ -317,7 +317,7 @@ MonoBehaviour:
     - line: '|   - m_BuildTarget: '
     - line: '|     m_Icons:'
     - line: '|     - serializedVersion: 2'
-    - line: '|       m_Icon: {fileID: 2800000, guid: c9cddf36de4a01542866d59e7b126154,
+    - line: '|       m_Icon: {fileID: 2800000, guid: c19017ad1491d804096cbecbd3533fc5,
         type: 3}'
     - line: '|       m_Width: 128'
     - line: '|       m_Height: 128'
