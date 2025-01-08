@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 764b5ec8d9117ef4298c3d9aae67ce80
+    m_Address: WinPlatform
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 80674d5b7dfc6f84c9952abc7458953f
     m_Address: Platform
     m_ReadOnly: 0

@@ -15,6 +15,7 @@ public interface IGameCycleSystem
     void SetPause(bool paused);
     UniTask StartGame();
     void EndGame();
+    void CreateLevel();
     UniTask Init();
 }
 
@@ -70,6 +71,15 @@ public class GameCycleSystem : IGameCycleSystem
         OnPauseChange?.Invoke(paused);
     }
 
+    public void CreateLevel()
+    {
+        // Reset player and lava
+        _playerMovementSystem.ResetBall();
+        _lavaSystem.Reset();
+        // Load level
+        _levelSystem.Generate();
+    }
+
     public async UniTask StartGame()
     {
         _scoreSystem.ResetScore();
@@ -82,16 +92,11 @@ public class GameCycleSystem : IGameCycleSystem
         }
 
         _uiSystem.Show(_hudModel).Forget();
-        // Reset player and lava
-        _playerMovementSystem.ResetBall();
-        _lavaSystem.Reset();
-        // Load level
-        _levelSystem.Generate();
+        CreateLevel();
 
         await _hudModel.AnimateStartPrompt("StartPrompt".Localize());
 
         SetPause(false);
-
         OnGameStart?.Invoke();
     }
 }

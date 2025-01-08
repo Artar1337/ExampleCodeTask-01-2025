@@ -2,7 +2,7 @@ using Zenject;
 
 public class PlatformController : BaseObstacleController
 {
-    [Inject] private IGameScoreSystem _scoreSystem;
+    [Inject] protected IGameScoreSystem _scoreSystem;
 
     public override void OnCollisionWithPlayerEntered()
     {

@@ -23,7 +23,8 @@ public class Runner : MonoBehaviour
         await _audioSystem.Init();
         _settingsSystem.Init();
         await _gameCycleSystem.Init();
-        await _levelSystem.Init(_resourcesSystem, _instantiator);
+        await _levelSystem.Init(_resourcesSystem,
+            _instantiator, _gameCycleSystem);
         await _lavaSystem.Init();
         _scoreSystem.Init();
 

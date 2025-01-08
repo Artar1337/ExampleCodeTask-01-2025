@@ -10,5 +10,6 @@ public enum SoundType
     UIShow,
     UIHide,
     MenuMusic,
-    GameplayMusic
+    GameplayMusic,
+    Teleportation
 }

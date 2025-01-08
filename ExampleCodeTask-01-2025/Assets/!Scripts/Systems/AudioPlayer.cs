@@ -1,45 +1,34 @@
-using UnityEngine;
-using Zenject;
-using System;
-
 public class AudioPlayer
 {
-    private readonly IAudioSystem _audioSystem;
-    private readonly IPlayerMovementSystem _movementSystem;
-    private readonly IGameCycleSystem _cycleSystem;
-    private readonly IUISystem _uiSystem;
-
     public AudioPlayer(IAudioSystem audioSystem,
         IPlayerMovementSystem movementSystem,
         IGameCycleSystem cycleSystem,
+        ILevelSystem levelSystem,
         IUISystem uiSystem)
     {
-        _audioSystem = audioSystem;
-        _movementSystem = movementSystem;
-        _cycleSystem = cycleSystem;
-        _uiSystem = uiSystem;
+        movementSystem.OnPlayerJump += () => audioSystem.PlaySoundOneShot(SoundType.Jump);
+        movementSystem.OnPlayerLand += () => audioSystem.PlaySoundOneShot(SoundType.Land);
+        movementSystem.OnPlayerStartMoveOnGround += () => audioSystem.PlaySoundLoop(SoundType.Roll);
+        movementSystem.OnPlayerEndMoveOnGround += () => audioSystem.StopLoopSound();
+        movementSystem.OnPlayerDeath += () => audioSystem.PlaySoundOneShot(SoundType.GameOver);
 
-        _movementSystem.OnPlayerJump += () => _audioSystem.PlaySoundOneShot(SoundType.Jump);
-        _movementSystem.OnPlayerLand += () => _audioSystem.PlaySoundOneShot(SoundType.Land);
-        _movementSystem.OnPlayerStartMoveOnGround += () => _audioSystem.PlaySoundLoop(SoundType.Roll);
-        _movementSystem.OnPlayerEndMoveOnGround += () => _audioSystem.StopLoopSound();
-        _movementSystem.OnPlayerDeath += () => _audioSystem.PlaySoundOneShot(SoundType.GameOver);
-
-        _cycleSystem.OnPauseChange += (paused) =>
+        cycleSystem.OnPauseChange += (paused) =>
         {
-            _audioSystem.StopLoopSound();
+            audioSystem.StopLoopSound();
 
-            if (!paused && _movementSystem.IsGrounded && _movementSystem.Moving)
+            if (!paused && movementSystem.IsGrounded && movementSystem.Moving)
             {
-                _audioSystem.PlaySoundLoop(SoundType.Roll);
+                audioSystem.PlaySoundLoop(SoundType.Roll);
             }
         };
 
-        _cycleSystem.OnGameOver += () => _audioSystem.PlayMusic(SoundType.MenuMusic);
-        _cycleSystem.OnGameInit += () => _audioSystem.PlayMusic(SoundType.MenuMusic);
-        _cycleSystem.OnGameStart += () => _audioSystem.PlayMusic(SoundType.GameplayMusic);
+        cycleSystem.OnGameOver += () => audioSystem.PlayMusic(SoundType.MenuMusic);
+        cycleSystem.OnGameInit += () => audioSystem.PlayMusic(SoundType.MenuMusic);
+        cycleSystem.OnGameStart += () => audioSystem.PlayMusic(SoundType.GameplayMusic);
 
-        _uiSystem.OnViewHideStart += () => _audioSystem.PlaySoundOneShot(SoundType.UIHide);
-        _uiSystem.OnViewShowStart += () => _audioSystem.PlaySoundOneShot(SoundType.UIShow);
+        uiSystem.OnViewHideStart += () => audioSystem.PlaySoundOneShot(SoundType.UIHide);
+        uiSystem.OnViewShowStart += () => audioSystem.PlaySoundOneShot(SoundType.UIShow);
+
+        levelSystem.OnLevelWin += () => audioSystem.PlaySoundOneShot(SoundType.Teleportation);
     }
 }

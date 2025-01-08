@@ -69,6 +69,8 @@ public class PlayerMovementSystem : IPlayerMovementSystem, ITickable
         _rigidbody.useGravity = true;
         _rigidbody.isKinematic = false;
         _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+        _rigidbody.angularVelocity = Vector3.zero;
+        _rigidbody.linearVelocity = Vector3.zero;
         _cachedPlayerTransform.position = _playerDefaultPosition;
         _cachedPlayerTransform.gameObject.SetActive(true);
     }
