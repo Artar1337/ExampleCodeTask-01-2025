@@ -38,7 +38,7 @@ public class UIViewSettings : UIViewFadable
 
         foreach (var res in resolutions)
         {
-            string option = $"{res.width}x{res.height}";
+            string option = res.ToString();
 
             _resolutionDropdown.options.Add(new TMP_Dropdown.OptionData() { text = option });
         }

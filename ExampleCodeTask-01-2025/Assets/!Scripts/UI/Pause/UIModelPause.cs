@@ -40,8 +40,8 @@ public class UIModelPause : UIModel<UIViewPause>
     {
         _uiSystem.Hide(this).Forget();
 
-        _popupModel.Init("Выход",
-            "Действительно хотите выйти в меню?",
+        _popupModel.Init("Exit".Localize(),
+            "ExitMenuConfirmText".Localize(),
             () =>
             {
                 _gameCycleSystem.EndGame();

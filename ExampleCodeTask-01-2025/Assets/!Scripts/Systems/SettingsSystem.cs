@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using Zenject;
 
 public interface ISettingsSystem
@@ -9,6 +10,7 @@ public interface ISettingsSystem
     Resolution Resolution { get; }
     Resolution[] Resolutions { get; }
     bool Fullscreen { get; }
+    int LocaleIndex { get; }
 
     void SetFullscreenMode(bool value);
     void SetResolution(Resolution resolution);
@@ -16,6 +18,7 @@ public interface ISettingsSystem
     void SetMusicVolume(float value);
     void Init();
     void SaveSettings();
+    void SetLocaleByIndex(int index);
     Resolution GetResolutionByIndex(int index);
     int GetIndexByResolution(Resolution resolution);
 
@@ -29,6 +32,7 @@ public class SettingsSystem : ISettingsSystem
     private const string FullscreenKey = "Fullscreen";
     private const string MusicVolKey = "MusicVolume";
     private const string SoundVolKey = "SoundVolume";
+    private const string LocaleKey = "Locale";
 
     [Inject] private IAudioSystem _audioSystem;
 
@@ -37,6 +41,8 @@ public class SettingsSystem : ISettingsSystem
     public float SoundVolume { get; private set; }
     public Resolution Resolution { get; private set; }
     public bool Fullscreen { get; private set; }
+
+    public int LocaleIndex { get; private set; }
 
     public void Init()
     {
@@ -57,10 +63,13 @@ public class SettingsSystem : ISettingsSystem
             },
         };
 
+        LocaleIndex = PlayerPrefs.GetInt(LocaleKey, 0);
+
         SetMusicVolume(MusicVolume);
         SetSoundVolume(SoundVolume);
         SetResolution(Resolution);
         SetFullscreenMode(Fullscreen);
+        SetLocaleByIndex(LocaleIndex);
     }
 
     public void SetFullscreenMode(bool value)
@@ -139,5 +148,13 @@ public class SettingsSystem : ISettingsSystem
         }
 
         return Resolutions.Length - 1;
+    }
+
+    public void SetLocaleByIndex(int index)
+    {
+        LocaleIndex = index;
+
+        LocalizationSettings.SelectedLocale =
+            LocalizationSettings.AvailableLocales.Locales[index];
     }
 }

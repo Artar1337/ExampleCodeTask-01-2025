@@ -57,6 +57,7 @@ MonoBehaviour:
   _hideTimeSeconds: 0.3
   _canvasGroup: {fileID: 7809972642979224668}
   _exitBtn: {fileID: 5848008885219814007}
+  _scroll: {fileID: 6783452338794203328}
 --- !u!225 &7809972642979224668
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -519,7 +520,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3328618478501489976}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.65926063
+  m_Size: 0.62454444
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -559,7 +560,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.000061035156}
   m_SizeDelta: {x: -10, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8477992100947072471
@@ -650,6 +651,8 @@ GameObject:
   - component: {fileID: 1034393747619852778}
   - component: {fileID: 9125310677686248366}
   - component: {fileID: 8768481990997037655}
+  - component: {fileID: 7518487181871375655}
+  - component: {fileID: 5232511199748168935}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -714,12 +717,14 @@ MonoBehaviour:
     (\u0432 \u0447\u0430\u0441\u0442\u043D\u043E\u0441\u0442\u0438 \u043F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435
     \u0432\u0437\u044F\u0442\u044C \u043C\u0435\u043D\u044F \u043D\u0430 \u0440\u0430\u0431\u043E\u0442\u0443
     <sprite index=7>) - \u0441\u0432\u044F\u0436\u0438\u0442\u0435\u0441\u044C \u0441\u043E
-    \u043C\u043D\u043E\u0439 - <color=#3333FF><link=\"Telega\">t.me/artar1337</link></color>\n\n\u041B\u0438\u0446\u0435\u043D\u0437\u0438\u044F
+    \u043C\u043D\u043E\u0439 \u0432 <color=#3333FF><link=\"https://t.me/artar1337\">Telegram</link></color>,
+    \u043B\u0438\u0431\u043E \u0447\u0435\u0440\u0435\u0437 \u043F\u043E\u0447\u0442\u0443 
+    <color=#3333FF><link=\"https://shorturl.at/PPhf9\">armastra@gmail.com</link></color>\n\n\u041B\u0438\u0446\u0435\u043D\u0437\u0438\u044F
     Creative Commons Attribution 4.0 \u043D\u0430 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435
     \u0442\u0440\u0435\u043A\u0430 Manic Polka \u0438 Dead Drop (\u0438\u0441\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C:
-    Kevin MacLeod): \n<color=#3333FF><link=\"Credits1\">https://creativecommons.org/licenses/by/4.0/</link></color>\r\n\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0438:
-    \n<color=#3333FF><link=\"Credits2\">http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100168</link></color>\n<color=#3333FF><link=\"Credits3\">http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100264</link></color>\r\n\u0418\u0441\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C:
-    \n<color=#3333FF><link=\"Credits4\">http://incompetech.com/</link></color>\r\r\n"
+    Kevin MacLeod): \n<color=#3333FF><link=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</link></color>\r\n\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0438:
+    \n<color=#3333FF><link=\"http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100168\">http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100168</link></color>\n<color=#3333FF><link=\"http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100264\">http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100264</link></color>\r\n\u0418\u0441\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C:
+    \n<color=#3333FF><link=\"http://incompetech.com/\">http://incompetech.com/</link></color>\r\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4ec9670fd033d034886f954620f78a1b, type: 2}
   m_sharedMaterial: {fileID: -5545199865350300275, guid: 4ec9670fd033d034886f954620f78a1b, type: 2}
@@ -790,6 +795,58 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7518487181871375655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7229078930509432129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e7944b970c2654a9196e24575f1c12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5232511199748168935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7229078930509432129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:1605921540c81894a9045a906a52f3a0
+    m_TableEntryReference:
+      m_KeyId: 250018172928
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8768481990997037655}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &7567668430588455504
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,6 +858,7 @@ GameObject:
   - component: {fileID: 6231668988310042439}
   - component: {fileID: 5861937027767370746}
   - component: {fileID: 4003820273810294633}
+  - component: {fileID: 6853305752442354779}
   m_Layer: 5
   m_Name: header Text (TMP)
   m_TagString: Untagged
@@ -926,6 +984,46 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6853305752442354779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7567668430588455504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:1605921540c81894a9045a906a52f3a0
+    m_TableEntryReference:
+      m_KeyId: 23714500608
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4003820273810294633}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &7766164580263803642
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,10 +18,10 @@ public class UIModelGameOver : UIModel<UIViewGameOver>
     public override void OnShow()
     {
         string recordText = _gameScoreSystem.TryUpdateHiScore() ?
-            $"Новый рекорд: {_gameScoreSystem.HiScore}" :
-            $"Рекорд: {_gameScoreSystem.HiScore}";
+            $"{"NewRecord".Localize()}{_gameScoreSystem.HiScore}" :
+            $"{"Record".Localize()}{_gameScoreSystem.HiScore}";
 
-        _view.SetScoresText(recordText, $"Ваш счёт: {_gameScoreSystem.Score}");
+        _view.SetScoresText(recordText, $"{"YourScore".Localize()}{_gameScoreSystem.Score}");
     }
 
     public void ReStart()

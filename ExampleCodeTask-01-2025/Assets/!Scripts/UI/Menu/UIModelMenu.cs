@@ -10,6 +10,7 @@ public class UIModelMenu : UIModel<UIViewMenu>
     [Inject] private UIModelSettings _settingsModel;
     [Inject] private UIModelPopup _popupModel;
     [Inject] private IGameCycleSystem _gameCycleSystem;
+    [Inject] private ISettingsSystem _settingsSystem;
     [Inject] private IGameScoreSystem _gameScoreSystem;
 
     public override void OnInit()
@@ -18,37 +19,51 @@ public class UIModelMenu : UIModel<UIViewMenu>
         _view.OnExitClick += OpenExitConfirmation;
         _view.OnSettingsClick += OpenSettings;
         _view.OnStartClick += Start;
+        _view.OnRuToggleChanged += (x) => OnLanguageToggle(x, 1);
+        _view.OnEnToggleChanged += (x) => OnLanguageToggle(x, 0);
+        _view.InitToggles(_settingsSystem.LocaleIndex);
     }
 
     public override void OnShow()
     {
-        _view.SetHiScoreText($"Рекорд: {_gameScoreSystem.HiScore}");
+        _view.SetHiScoreText($"{"Record".Localize()}{_gameScoreSystem.HiScore}");
     }
 
-    public void Start()
+    private void OnLanguageToggle(bool value, int languageIndex)
+    {
+        if (!value)
+        {
+            return;
+        }
+
+        _settingsSystem.SetLocaleByIndex(languageIndex);
+        OnShow();
+    }
+
+    private void Start()
     {
         _gameCycleSystem.StartGame();
     }
 
-    public void OpenSettings()
+    private void OpenSettings()
     {
         _uiSystem.Hide(this).Forget();
         _settingsModel.SetModelToOpenAfterClose(this);
         _uiSystem.Show(_settingsModel).Forget();
     }
 
-    public void OpenAuthorPage()
+    private void OpenAuthorPage()
     {
         _uiSystem.Hide(this).Forget();
         _uiSystem.Show(_aboutModel).Forget();
     }
 
-    public void OpenExitConfirmation()
+    private void OpenExitConfirmation()
     {
         _uiSystem.Hide(this).Forget();
 
-        _popupModel.Init("Выход",
-            "Действительно хотите выйти из игры?",
+        _popupModel.Init("Exit".Localize(),
+            "ExitConfirmText".Localize(),
             () =>
             {
 #if UNITY_EDITOR

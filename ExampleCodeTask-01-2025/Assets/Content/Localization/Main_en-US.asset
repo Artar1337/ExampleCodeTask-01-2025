@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Main_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 1605921540c81894a9045a906a52f3a0, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 23714500608
+    m_Localized: About game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250018172928
+    m_Localized: 'The game was made as a demo project by Artem Maksimovich Astrakhancev,
+      Unity developer. If you have any questions or suggestions (in particular, an
+      offer to hire me <sprite index=7>) - contact me in <color=#3333FF><link="https://t.me/artar1337">Telegram</link></color>,
+      or by mail <color=#3333FF><link="https://shorturl.at/PPhf9">armastra@gmail.com</link></color>
+
+
+      Creative
+      Commons Attribution 4.0 License for the use of the track Manic Polka and Dead
+      Drop (artist: Kevin MacLeod):
+
+      <color=#3333FF><link="https://creativecommons.org/licenses/by/4.0/">https://creativecommons.org/licenses/by/4.0/</link></color>
+
+      Sources:
+
+      <color=#3333FF><link="http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100168">http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100168</link></color>
+
+      <color=#3333FF><link="http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100264">http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100264</link></color>
+
+      Music
+      author:
+
+      <color=#3333FF><link="http://incompetech.com/">http://incompetech.com/</link></color>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 603740606464
+    m_Localized: 'HiScore: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 659789090816
+    m_Localized: 'New HiScore: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 776071974912
+    m_Localized: Game over!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 848222392320
+    m_Localized: 'Your score: '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 982083604480
+    m_Localized: Play again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1043211390976
+    m_Localized: Exit to menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135267975168
+    m_Localized: Loading...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1215978967040
+    m_Localized: Lava ball
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1280470585344
+    m_Localized: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1313395871744
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1377296093184
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1464659251200
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1484670275584
+    m_Localized: Pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1558708129792
+    m_Localized: Ok
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1604308602880
+    m_Localized: Cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1664090017792
+    m_Localized: Sound volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1684159762432
+    m_Localized: Music volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1702157520896
+    m_Localized: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1715008868352
+    m_Localized: Fullscreen mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5887275995136
+    m_Localized: Are you sure you want to quit the game?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6096848588800
+    m_Localized: Are you sure you want to quit to main menu?
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
