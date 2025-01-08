@@ -34,8 +34,8 @@ MonoBehaviour:
       \u0432\u0437\u044F\u0442\u044C \u043C\u0435\u043D\u044F \u043D\u0430 \u0440\u0430\u0431\u043E\u0442\u0443
       <sprite index=7>) - \u0441\u0432\u044F\u0436\u0438\u0442\u0435\u0441\u044C
       \u0441\u043E \u043C\u043D\u043E\u0439 \u0432 <color=#3333FF><link=\"https://t.me/artar1337\">Telegram</link></color>,
-      \u043B\u0438\u0431\u043E \u0447\u0435\u0440\u0435\u0437 \u043F\u043E\u0447\u0442\u0443 
-      <color=#3333FF><link=\"https://shorturl.at/PPhf9\">armastra@gmail.com</link></color>\n\n\u041B\u0438\u0446\u0435\u043D\u0437\u0438\u044F
+      \u043B\u0438\u0431\u043E \u0447\u0435\u0440\u0435\u0437 \u043F\u043E\u0447\u0442\u0443
+      <color=#3333FF><link=\"mailto:armastra@gmail.com\">armastra@gmail.com</link></color>\n\n\u041B\u0438\u0446\u0435\u043D\u0437\u0438\u044F
       Creative Commons Attribution 4.0 \u043D\u0430 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435
       \u0442\u0440\u0435\u043A\u0430 Manic Polka \u0438 Dead Drop (\u0438\u0441\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C:
       Kevin MacLeod): \n<color=#3333FF><link=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</link></color>\r\n\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0438:
@@ -56,7 +56,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 848222392320
-    m_Localized: "\u0412\u0430\u0448 \u0441\u0447\u0451\u0442:"
+    m_Localized: "\u0412\u0430\u0448 \u0441\u0447\u0451\u0442: "
     m_Metadata:
       m_Items: []
   - m_Id: 982083604480
@@ -65,10 +65,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1043211390976
     m_Localized: "\u0412\u044B\u0439\u0442\u0438 \u0432 \u043C\u0435\u043D\u044E"
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1135267975168
-    m_Localized: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430..."
     m_Metadata:
       m_Items: []
   - m_Id: 1215978967040
@@ -129,6 +125,10 @@ MonoBehaviour:
     m_Localized: "\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043B\u044C\u043D\u043E
       \u0445\u043E\u0442\u0438\u0442\u0435 \u0432\u044B\u0439\u0442\u0438 \u0432
       \u043C\u0435\u043D\u044E?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 41549152817152
+    m_Localized: "\u041D\u0410\u0427\u0410\u041B\u0418!"
     m_Metadata:
       m_Items: []
   references:

@@ -14,6 +14,7 @@ public interface IPlayerMovementSystem
     event Action OnPlayerEndMoveOnGround;
     bool IsGrounded { get; }
     bool Moving { get; }
+    bool CanMove { get; }
     Transform PlayerTransform { get; }
     void ResetBall();
     void ProcessDeath();
@@ -47,6 +48,7 @@ public class PlayerMovementSystem : IPlayerMovementSystem, ITickable
     public Transform PlayerTransform => _cachedPlayerTransform;
     public bool IsGrounded => _isGrounded;
     public bool Moving => _moving;
+    public bool CanMove => _canMove;
 
     public event Action OnPlayerJump;
     public event Action OnPlayerLand;

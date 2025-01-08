@@ -42,7 +42,7 @@ public class UIModelMenu : UIModel<UIViewMenu>
 
     private void Start()
     {
-        _gameCycleSystem.StartGame();
+        _gameCycleSystem.StartGame().Forget();
     }
 
     private void OpenSettings()

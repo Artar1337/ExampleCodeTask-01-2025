@@ -46,9 +46,10 @@ public class SettingsSystem : ISettingsSystem
 
     public void Init()
     {
-        MusicVolume = PlayerPrefs.GetFloat(MusicVolKey, 1f);
+        MusicVolume = PlayerPrefs.GetFloat(MusicVolKey, 0.4f);
         SoundVolume = PlayerPrefs.GetFloat(SoundVolKey, 1f);
         Fullscreen = PlayerPrefs.GetInt(FullscreenKey, 1) > 0;
+        LocaleIndex = PlayerPrefs.GetInt(LocaleKey, 0);
 
         var defaultResolution = GetDefaultResolution();
         Resolution = new()
@@ -62,8 +63,6 @@ public class SettingsSystem : ISettingsSystem
                 denominator = 1
             },
         };
-
-        LocaleIndex = PlayerPrefs.GetInt(LocaleKey, 0);
 
         SetMusicVolume(MusicVolume);
         SetSoundVolume(SoundVolume);
@@ -107,6 +106,7 @@ public class SettingsSystem : ISettingsSystem
         PlayerPrefs.SetInt(ResolutionWKey, Resolution.width);
         PlayerPrefs.SetInt(ResolutionHKey, Resolution.height);
         PlayerPrefs.SetFloat(ResolutionRateKey, (float)Resolution.refreshRateRatio.value);
+        PlayerPrefs.SetInt(LocaleKey, LocaleIndex);
     }
 
     public Resolution GetResolutionByIndex(int index)

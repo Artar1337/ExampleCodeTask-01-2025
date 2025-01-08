@@ -47,10 +47,6 @@ MonoBehaviour:
     m_Key: ToMainMenu
     m_Metadata:
       m_Items: []
-  - m_Id: 1135267975168
-    m_Key: Loading
-    m_Metadata:
-      m_Items: []
   - m_Id: 1215978967040
     m_Key: GameName
     m_Metadata:
@@ -105,6 +101,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 6096848588800
     m_Key: ExitMenuConfirmText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 41549152817152
+    m_Key: StartPrompt
     m_Metadata:
       m_Items: []
   m_Metadata:

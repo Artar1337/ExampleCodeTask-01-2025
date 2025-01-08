@@ -26,7 +26,7 @@ public class UIModelGameOver : UIModel<UIViewGameOver>
 
     public void ReStart()
     {
-        _gameCycleSystem.StartGame();
+        _gameCycleSystem.StartGame().Forget();
     }
 
     public void OpenMenu()

@@ -13,7 +13,7 @@ public interface IGameCycleSystem
     bool Paused { get; }
 
     void SetPause(bool paused);
-    void StartGame();
+    UniTask StartGame();
     void EndGame();
     UniTask Init();
 }
@@ -70,7 +70,7 @@ public class GameCycleSystem : IGameCycleSystem
         OnPauseChange?.Invoke(paused);
     }
 
-    public void StartGame()
+    public async UniTask StartGame()
     {
         _scoreSystem.ResetScore();
         // Hide all ui
@@ -87,6 +87,9 @@ public class GameCycleSystem : IGameCycleSystem
         _lavaSystem.Reset();
         // Load level
         _levelSystem.Generate();
+
+        await _hudModel.AnimateStartPrompt("StartPrompt".Localize());
+
         SetPause(false);
 
         OnGameStart?.Invoke();
