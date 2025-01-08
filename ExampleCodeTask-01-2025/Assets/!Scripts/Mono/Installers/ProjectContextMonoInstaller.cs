@@ -21,6 +21,7 @@ public class ProjectContextMonoInstaller : MonoInstaller
         Container.BindInterfacesTo<GameScoreSystem>().AsSingle();
         Container.BindInterfacesTo<LavaSystem>().AsSingle();
         Container.BindInterfacesTo<AudioSystem>().AsSingle();
+        Container.BindInterfacesTo<SettingsSystem>().AsSingle();
         Container.BindInterfacesTo<LevelSystem>().
             FromInstance(new LevelSystem(_levelSystemMediator)).AsSingle();
         Container.BindInterfacesTo<UISystem>().

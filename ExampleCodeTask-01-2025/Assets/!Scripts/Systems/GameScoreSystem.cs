@@ -1,4 +1,3 @@
-
 using System;
 
 public interface IGameScoreSystem
@@ -10,10 +9,13 @@ public interface IGameScoreSystem
     void ResetScore();
     bool TryUpdateHiScore();
     void AddScore(int increment = 1);
+    void Init();
 }
 
 public class GameScoreSystem : IGameScoreSystem
 {
+    private const string HiScoreKey = "HiScore";
+
     public int Score { get; private set; }
     public int HiScore { get; private set; }
 
@@ -23,6 +25,11 @@ public class GameScoreSystem : IGameScoreSystem
     {
         Score += increment;
         OnScoreChanged?.Invoke(Score);
+    }
+
+    public void Init()
+    {
+        HiScore = CryptographicPlayerPrefs.GetInt(HiScoreKey, 0);
     }
 
     public void ResetScore()
@@ -36,6 +43,7 @@ public class GameScoreSystem : IGameScoreSystem
         if (HiScore < Score)
         {
             HiScore = Score;
+            CryptographicPlayerPrefs.SetInt(HiScoreKey, HiScore);
             return true;
         }
 

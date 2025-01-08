@@ -25,4 +25,24 @@ public class UIViewSettings : UIViewFadable
         _fullScreenToggle.onValueChanged.AddListener((x) => OnFullscreenToggle?.Invoke(x));
         _exitButton.onClick.AddListener(() => OnExitClick?.Invoke());
     }
+
+    public void InitializeView(bool fullscreen, float musicVol, float soundVol,
+        Resolution[] resolutions, int currentResolutionIndex)
+    {
+        _soundSlider.SetValueWithoutNotify(soundVol);
+        _musicSlider.SetValueWithoutNotify(musicVol);
+        _fullScreenToggle.SetIsOnWithoutNotify(fullscreen);
+
+        _resolutionDropdown.SetValueWithoutNotify(0);
+        _resolutionDropdown.ClearOptions();
+
+        foreach (var res in resolutions)
+        {
+            string option = $"{res.width}x{res.height}";
+
+            _resolutionDropdown.options.Add(new TMP_Dropdown.OptionData() { text = option });
+        }
+
+        _resolutionDropdown.SetValueWithoutNotify(currentResolutionIndex);
+    }
 }

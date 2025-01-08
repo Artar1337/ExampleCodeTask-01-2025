@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -6,7 +7,8 @@ public interface ILevelSystem
 {
     int CurrentPlatformIndex { get; }
     Transform LevelObjectsRoot { get; }
-    void ProcessPlatformHide(BaseObstacleController controller);
+    HashSet<GameObject> ActivePlatforms { get; }
+    void ProcessPlatformHide(GameObject platform);
     UniTask Init(IResourcesSystem resources, IInstantiator instantiator);
     void Generate(int seed = 0);
 }
@@ -23,6 +25,7 @@ public class LevelSystem : ILevelSystem
     private Transform _lobbyPlatform;
 
     public Transform LevelObjectsRoot => _levelObjectsRoot;
+    public HashSet<GameObject> ActivePlatforms => _platformsPool.ActiveObjects;
     public int CurrentPlatformIndex { get; private set; }
 
     public LevelSystem(LevelSystemMediator mediator)
@@ -68,11 +71,11 @@ public class LevelSystem : ILevelSystem
             _levelObjectsRoot, MAX_COUNT_ON_SCREEN);
     }
 
-    public void ProcessPlatformHide(BaseObstacleController controller)
+    public void ProcessPlatformHide(GameObject platform)
     {
-        if (controller != null)
+        if (platform != null)
         {
-            _platformsPool.Release(controller.gameObject);
+            _platformsPool.Release(platform);
         }
 
         PlaceNewPlatform();

@@ -7,6 +7,7 @@ public class GameObjectPool
 {
     private readonly ObjectPool<GameObject> _pool;
     private readonly HashSet<GameObject> _activeObjects;
+    public HashSet<GameObject> ActiveObjects => _activeObjects;
 
     public GameObjectPool(IInstantiator instantiator, GameObject prefab,
         Transform root, int capacity)

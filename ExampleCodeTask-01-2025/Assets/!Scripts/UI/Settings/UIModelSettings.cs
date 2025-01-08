@@ -1,8 +1,10 @@
 using Cysharp.Threading.Tasks;
-using UnityEngine;
+using Zenject;
 
 public class UIModelSettings : UIModel<UIViewSettings>
 {
+    [Inject] private ISettingsSystem _settings;
+
     public override string ViewName => "UI/Settings";
 
     private IUIModel _modelToOpenAfterClose = null;
@@ -18,7 +20,15 @@ public class UIModelSettings : UIModel<UIViewSettings>
 
     public override void OnShow()
     {
-        // заполнить настройками
+        _view.InitializeView(_settings.Fullscreen,
+            _settings.MusicVolume, _settings.SoundVolume,
+            _settings.Resolutions,
+            _settings.GetIndexByResolution(_settings.Resolution));
+    }
+
+    public override void OnHide()
+    {
+        _settings.SaveSettings();
     }
 
     public void SetModelToOpenAfterClose(IUIModel model)
@@ -38,21 +48,21 @@ public class UIModelSettings : UIModel<UIViewSettings>
 
     public void ToggleFullscreen(bool value)
     {
-
+        _settings.SetFullscreenMode(value);
     }
 
     public void ChangeMusicVolume(float value)
     {
-
+        _settings.SetMusicVolume(value);
     }
 
     public void ChangeSoundVolume(float value)
     {
-
+        _settings.SetSoundVolume(value);
     }
 
     public void ChangeResolution(int index)
     {
-
+        _settings.SetResolution(_settings.GetResolutionByIndex(index));
     }
 }

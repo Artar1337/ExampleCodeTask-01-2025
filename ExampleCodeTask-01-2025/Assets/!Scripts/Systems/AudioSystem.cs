@@ -13,6 +13,10 @@ public interface IAudioSystem
     void PlayMusic(SoundType music);
     void StopMusic();
     void StopLoopSound();
+    /// <param name="volume">0 - 1</param>
+    void SetSoundMixerVolume(float volume);
+    /// <param name="volume">0 - 1</param>
+    void SetMusicMixerVolume(float volume);
 }
 
 public class AudioSystem : IAudioSystem, IDisposable
@@ -134,5 +138,22 @@ public class AudioSystem : IAudioSystem, IDisposable
             timeLeft -= Time.deltaTime;
             src.volume = Mathf.Lerp(endvolume, startVolume, timeLeft / time);
         }
+    }
+
+    public void SetSoundMixerVolume(float volume)
+    {
+        _soundSource.outputAudioMixerGroup.audioMixer.SetFloat("Sound",
+            Convert01RangeToMixerRange(volume));
+    }
+
+    public void SetMusicMixerVolume(float volume)
+    {
+        _soundSource.outputAudioMixerGroup.audioMixer.SetFloat("Music",
+            Convert01RangeToMixerRange(volume));
+    }
+
+    private float Convert01RangeToMixerRange(float volume)
+    {
+        return Mathf.Approximately(0f, volume) ? -80 : Mathf.Log10(volume) * 20;
     }
 }
