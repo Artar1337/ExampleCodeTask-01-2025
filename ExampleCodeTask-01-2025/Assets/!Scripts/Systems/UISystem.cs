@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public interface IUISystem
 {
+    event Action OnViewHideStart;
+    event Action OnViewShowStart;
     HashSet<IUIModel> ShownModels { get; }
     Transform UIRoot { get; }
 
@@ -22,6 +25,9 @@ public class UISystem : IUISystem
         UIRoot = uiSystemMediator.UIRoot;
     }
 
+    public event Action OnViewHideStart;
+    public event Action OnViewShowStart;
+
     public async UniTask Show(IUIModel model)
     {
         if (IsShown(model))
@@ -29,6 +35,11 @@ public class UISystem : IUISystem
             return;
         }
 
+        if (!model.IsSilent)
+        {
+            OnViewShowStart?.Invoke();
+        }
+        
         await model.Show();
 
         if (!IsShown(model))
@@ -42,6 +53,11 @@ public class UISystem : IUISystem
         if (!IsShown(model))
         {
             return;
+        }
+
+        if (!model.IsSilent)
+        {
+            OnViewHideStart?.Invoke();
         }
 
         await model.Hide();

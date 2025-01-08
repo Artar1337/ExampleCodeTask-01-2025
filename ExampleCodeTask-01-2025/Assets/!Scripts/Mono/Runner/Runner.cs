@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -9,13 +8,17 @@ public class Runner : MonoBehaviour
     [Inject] private IInstantiator _instantiator;
     [Inject] private IGameCycleSystem _gameCycleSystem;
     [Inject] private ILevelSystem _levelSystem;
+    [Inject] private IAudioSystem _audioSystem;
+    [Inject] private ILavaSystem _lavaSystem;
     [Inject] private UIModelMenu _menuModel;
 
     private async void Start()
     {
         await _resourcesSystem.Init();
-        await _gameCycleSystem.InitializeGame();
+        await _audioSystem.Init();
+        await _gameCycleSystem.Init();
         await _levelSystem.Init(_resourcesSystem, _instantiator);
+        await _lavaSystem.Init();
 
         await _uiSystem.Show(_menuModel);
     }

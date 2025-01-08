@@ -4,6 +4,7 @@ using System;
 public class UIModelPopup : UIModel<UIViewPopup>
 {
     public override string ViewName => "UI/Popup";
+    public override bool IsSilent => true;
 
     private Action _onOk;
     private Action _onCancel;

@@ -1,16 +1,21 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 public interface IGameCycleSystem
 {
+    event Action OnGameOver;
+    event Action OnGameStart;
+    event Action OnGameInit;
+    event Action<bool> OnPauseChange;
     bool Paused { get; }
 
     void SetPause(bool paused);
     void StartGame();
     void EndGame();
-    UniTask InitializeGame();
+    UniTask Init();
 }
 
 public class GameCycleSystem : IGameCycleSystem
@@ -20,10 +25,16 @@ public class GameCycleSystem : IGameCycleSystem
     [Inject] private IUISystem _uiSystem;
     [Inject] private IGameScoreSystem _scoreSystem;
     [Inject] private ILevelSystem _levelSystem;
+    [Inject] private ILavaSystem _lavaSystem;
     [Inject] private UIModelGameOver _gameOverModel;
     [Inject] private UIModelHud _hudModel;
 
     public bool Paused { get; private set; }
+
+    public event Action OnGameOver;
+    public event Action OnGameStart;
+    public event Action OnGameInit;
+    public event Action<bool> OnPauseChange;
 
     public void EndGame()
     {
@@ -36,14 +47,18 @@ public class GameCycleSystem : IGameCycleSystem
         }
 
         _uiSystem.Show(_gameOverModel).Forget();
+
+        OnGameOver?.Invoke();
     }
 
-    public async UniTask InitializeGame()
+    public async UniTask Init()
     {
         SetPause(true);
         // Load player
         var player = await _resources.Instantiate<PlayerMovementMediator>("Player");
         _playerMovementSystem.Init(player);
+
+        OnGameInit?.Invoke();
     }
 
     public void SetPause(bool paused)
@@ -51,11 +66,12 @@ public class GameCycleSystem : IGameCycleSystem
         Paused = paused;
         Physics.simulationMode = paused ?
             SimulationMode.Script : SimulationMode.FixedUpdate;
+
+        OnPauseChange?.Invoke(paused);
     }
 
     public void StartGame()
     {
-        SetPause(false);
         _scoreSystem.ResetScore();
         // Hide all ui
         var setCopy = new HashSet<IUIModel>(_uiSystem.ShownModels);
@@ -66,9 +82,13 @@ public class GameCycleSystem : IGameCycleSystem
         }
 
         _uiSystem.Show(_hudModel).Forget();
-        // Reset player
+        // Reset player and lava
         _playerMovementSystem.ResetBall();
+        _lavaSystem.Reset();
         // Load level
-        _levelSystem.Generate(new Vector3(0, -2, 0));
+        _levelSystem.Generate();
+        SetPause(false);
+
+        OnGameStart?.Invoke();
     }
 }

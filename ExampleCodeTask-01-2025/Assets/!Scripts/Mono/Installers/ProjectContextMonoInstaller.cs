@@ -19,10 +19,13 @@ public class ProjectContextMonoInstaller : MonoInstaller
         Container.BindInterfacesTo<PlayerMovementSystem>().AsSingle();
         Container.BindInterfacesTo<GameCycleSystem>().AsSingle();
         Container.BindInterfacesTo<GameScoreSystem>().AsSingle();
+        Container.BindInterfacesTo<LavaSystem>().AsSingle();
+        Container.BindInterfacesTo<AudioSystem>().AsSingle();
         Container.BindInterfacesTo<LevelSystem>().
             FromInstance(new LevelSystem(_levelSystemMediator)).AsSingle();
         Container.BindInterfacesTo<UISystem>().
             FromInstance(new UISystem(_uiSystemMediator)).AsSingle();
+        Container.Bind<AudioPlayer>().AsSingle().NonLazy();
     }
 
     public void InstallUI()

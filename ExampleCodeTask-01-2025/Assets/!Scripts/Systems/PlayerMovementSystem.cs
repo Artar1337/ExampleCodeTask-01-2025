@@ -7,6 +7,13 @@ using Zenject;
 
 public interface IPlayerMovementSystem
 {
+    event Action OnPlayerJump;
+    event Action OnPlayerLand;
+    event Action OnPlayerDeath;
+    event Action OnPlayerStartMoveOnGround;
+    event Action OnPlayerEndMoveOnGround;
+    bool IsGrounded { get; }
+    bool Moving { get; }
     Transform PlayerTransform { get; }
     void ResetBall();
     void ProcessDeath();
@@ -34,9 +41,18 @@ public class PlayerMovementSystem : IPlayerMovementSystem, ITickable
     private bool _canMove = true;
     private bool _canJump = true;
     private bool _isGrounded = false;
+    private bool _moving = false;
     private Vector3 _playerDefaultPosition;
 
     public Transform PlayerTransform => _cachedPlayerTransform;
+    public bool IsGrounded => _isGrounded;
+    public bool Moving => _moving;
+
+    public event Action OnPlayerJump;
+    public event Action OnPlayerLand;
+    public event Action OnPlayerStartMoveOnGround;
+    public event Action OnPlayerEndMoveOnGround;
+    public event Action OnPlayerDeath;
 
     public void ResetBall()
     {
@@ -46,7 +62,8 @@ public class PlayerMovementSystem : IPlayerMovementSystem, ITickable
 
         _canMove = true;
         _canJump = true;
-        _isGrounded = false;
+        _isGrounded = true;
+        _moving = false;
         _rigidbody.useGravity = true;
         _rigidbody.isKinematic = false;
         _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
@@ -83,7 +100,19 @@ public class PlayerMovementSystem : IPlayerMovementSystem, ITickable
             return;
         }
 
-        _isGrounded = Mathf.Abs(_rigidbody.linearVelocity.y) < IS_GROUNDED_MINIMAL_VELOCITY;
+        var isGrounded = Mathf.Abs(_rigidbody.linearVelocity.y) < IS_GROUNDED_MINIMAL_VELOCITY;
+
+        if (isGrounded && !_isGrounded && _canMove)
+        {
+            OnPlayerLand?.Invoke();
+
+            if (_moving)
+            {
+                OnPlayerStartMoveOnGround?.Invoke();
+            }
+        }
+
+        _isGrounded = isGrounded;
 
         MoveBall();
         RotateBall();
@@ -112,6 +141,18 @@ public class PlayerMovementSystem : IPlayerMovementSystem, ITickable
             _rigidbody.AddForce(moveDirection, ForceMode.VelocityChange);
         }
 
+        if (moving != _moving && _isGrounded)
+        {
+            if (moving)
+            {
+                OnPlayerStartMoveOnGround?.Invoke();
+            }
+            else
+            {
+                OnPlayerEndMoveOnGround?.Invoke();
+            }
+        }
+
         if (_isGrounded && _canJump)
         {
             bool jumped = Input.GetAxis("Jump") > 0f;
@@ -120,8 +161,13 @@ public class PlayerMovementSystem : IPlayerMovementSystem, ITickable
             {
                 _rigidbody.AddForce(Vector3.up * JUMP_HEIGHT, ForceMode.Impulse);
                 JumpTask().Forget();
+
+                OnPlayerEndMoveOnGround?.Invoke();
+                OnPlayerJump?.Invoke();
             }
         }
+
+        _moving = moving;
     }
 
     private void RotateBall()
@@ -160,6 +206,9 @@ public class PlayerMovementSystem : IPlayerMovementSystem, ITickable
         _rigidbody.linearVelocity = Vector3.zero;
         _rigidbody.interpolation = RigidbodyInterpolation.None;
         _rigidbody.isKinematic = true;
+
+        OnPlayerEndMoveOnGround?.Invoke();
+        OnPlayerDeath?.Invoke();
 
         float timer = DEATH_ANIMATION_TIME;
         Vector3 initialPos = _cachedPlayerTransform.position;

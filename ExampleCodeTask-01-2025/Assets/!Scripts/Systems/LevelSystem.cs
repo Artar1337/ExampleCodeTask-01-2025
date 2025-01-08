@@ -5,9 +5,10 @@ using Zenject;
 public interface ILevelSystem
 {
     int CurrentPlatformIndex { get; }
+    Transform LevelObjectsRoot { get; }
     void ProcessPlatformHide(BaseObstacleController controller);
     UniTask Init(IResourcesSystem resources, IInstantiator instantiator);
-    void Generate(Vector3 startPoint, int seed = 0);
+    void Generate(int seed = 0);
 }
 
 public class LevelSystem : ILevelSystem
@@ -21,6 +22,7 @@ public class LevelSystem : ILevelSystem
     private GameObjectPool _platformsPool;
     private Transform _lobbyPlatform;
 
+    public Transform LevelObjectsRoot => _levelObjectsRoot;
     public int CurrentPlatformIndex { get; private set; }
 
     public LevelSystem(LevelSystemMediator mediator)
@@ -28,7 +30,7 @@ public class LevelSystem : ILevelSystem
         _levelObjectsRoot = mediator.LevelObjectsRoot;
     }
 
-    public void Generate(Vector3 startPoint, int seed = 0)
+    public void Generate(int seed = 0)
     {
         if (seed == 0)
         {
@@ -37,7 +39,7 @@ public class LevelSystem : ILevelSystem
 
         Random.InitState(seed);
         _platformsPool.ReleaseAll();
-        _platforms[0] = startPoint;
+        _platforms[0] = _lobbyPlatform.position;
 
         for (int i = 1; i < MAX_COUNT_TO_GENERATE; i++)
         {

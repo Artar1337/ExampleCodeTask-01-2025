@@ -4,6 +4,7 @@ using Zenject;
 
 public interface IUIModel
 {
+    bool IsSilent { get; }
     bool Shown { get; }
     UniTask Show();
     UniTask Hide();
@@ -21,6 +22,7 @@ public abstract class UIModel<T> : IUIModel where T : UIView
     public bool Shown => _uiSystem.IsShown(this);
 
     public abstract string ViewName { get; }
+    public virtual bool IsSilent => false;
 
     public virtual void OnShow()
     {
