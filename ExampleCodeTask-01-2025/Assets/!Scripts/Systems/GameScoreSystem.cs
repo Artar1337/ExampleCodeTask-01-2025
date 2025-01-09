@@ -1,52 +1,56 @@
+using Data;
 using System;
 
-public interface IGameScoreSystem
+namespace Logic.Systems
 {
-    event Action<int> OnScoreChanged;
-
-    int Score { get; }
-    int HiScore { get; }
-    void ResetScore();
-    bool TryUpdateHiScore();
-    void AddScore(int increment = 1);
-    void Init();
-}
-
-public class GameScoreSystem : IGameScoreSystem
-{
-    private const string HiScoreKey = "HiScore";
-
-    public int Score { get; private set; }
-    public int HiScore { get; private set; }
-
-    public event Action<int> OnScoreChanged;
-
-    public void AddScore(int increment = 1)
+    public interface IGameScoreSystem
     {
-        Score += increment;
-        OnScoreChanged?.Invoke(Score);
+        event Action<int> OnScoreChanged;
+
+        int Score { get; }
+        int HiScore { get; }
+        void ResetScore();
+        bool TryUpdateHiScore();
+        void AddScore(int increment = 1);
+        void Init();
     }
 
-    public void Init()
+    public class GameScoreSystem : IGameScoreSystem
     {
-        HiScore = CryptographicPlayerPrefs.GetInt(HiScoreKey, 0);
-    }
+        private const string HiScoreKey = "HiScore";
 
-    public void ResetScore()
-    {
-        Score = 0;
-        OnScoreChanged?.Invoke(Score);
-    }
+        public int Score { get; private set; }
+        public int HiScore { get; private set; }
 
-    public bool TryUpdateHiScore()
-    {
-        if (HiScore < Score)
+        public event Action<int> OnScoreChanged;
+
+        public void AddScore(int increment = 1)
         {
-            HiScore = Score;
-            CryptographicPlayerPrefs.SetInt(HiScoreKey, HiScore);
-            return true;
+            Score += increment;
+            OnScoreChanged?.Invoke(Score);
         }
 
-        return false;
+        public void Init()
+        {
+            HiScore = CryptographicPlayerPrefs.GetInt(HiScoreKey, 0);
+        }
+
+        public void ResetScore()
+        {
+            Score = 0;
+            OnScoreChanged?.Invoke(Score);
+        }
+
+        public bool TryUpdateHiScore()
+        {
+            if (HiScore < Score)
+            {
+                HiScore = Score;
+                CryptographicPlayerPrefs.SetInt(HiScoreKey, HiScore);
+                return true;
+            }
+
+            return false;
+        }
     }
 }

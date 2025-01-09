@@ -1,26 +1,29 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
- 
-[RequireComponent(typeof(TMP_Text))]
-public class TMP_Link : MonoBehaviour, IPointerClickHandler
+
+namespace Logic.Mono
 {
-    private TMP_Text _text;
-
-    private void Awake()
+    [RequireComponent(typeof(TMP_Text))]
+    public class TMP_Link : MonoBehaviour, IPointerClickHandler
     {
-        _text = GetComponent<TMP_Text>();
-    }
+        private TMP_Text _text;
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        int linkIndex = TMP_TextUtilities.
-            FindIntersectingLink(_text, eventData.position, null);
+        private void Awake()
+        {
+            _text = GetComponent<TMP_Text>();
+        }
 
-        if (linkIndex != -1)
-        { 
-            TMP_LinkInfo linkInfo = _text.textInfo.linkInfo[linkIndex];
-            Application.OpenURL(linkInfo.GetLinkID());
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            int linkIndex = TMP_TextUtilities.
+                FindIntersectingLink(_text, eventData.position, null);
+
+            if (linkIndex != -1)
+            { 
+                TMP_LinkInfo linkInfo = _text.textInfo.linkInfo[linkIndex];
+                Application.OpenURL(linkInfo.GetLinkID());
+            }
         }
     }
 }

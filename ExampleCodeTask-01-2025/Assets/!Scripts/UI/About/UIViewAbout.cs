@@ -2,21 +2,24 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIViewAbout : UIViewFadable
+namespace UI.Views
 {
-    [Header("About")]
-    [SerializeField] private Button _exitBtn;
-    [SerializeField] private ScrollRect _scroll;
-
-    public event Action OnExitClick;
-
-    private void Awake()
+    public class UIViewAbout : UIViewFadable
     {
-        _exitBtn.onClick.AddListener(() => OnExitClick?.Invoke());
-    }
+        [Header("About")]
+        [SerializeField] private Button _exitBtn;
+        [SerializeField] private ScrollRect _scroll;
 
-    private void OnEnable()
-    {
-        _scroll.verticalNormalizedPosition = 1f;
+        public event Action OnExitClick;
+
+        private void Awake()
+        {
+            _exitBtn.onClick.AddListener(() => OnExitClick?.Invoke());
+        }
+
+        private void OnEnable()
+        {
+            _scroll.verticalNormalizedPosition = 1f;
+        }
     }
 }

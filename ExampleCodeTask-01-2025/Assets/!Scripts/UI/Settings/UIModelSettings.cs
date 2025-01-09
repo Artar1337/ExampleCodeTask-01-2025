@@ -1,68 +1,78 @@
 using Cysharp.Threading.Tasks;
 using Zenject;
+using UI.Views;
+using Logic.Systems;
 
-public class UIModelSettings : UIModel<UIViewSettings>
+namespace UI.Models
 {
-    [Inject] private ISettingsSystem _settings;
-
-    public override string ViewName => "UI/Settings";
-
-    private IUIModel _modelToOpenAfterClose = null;
-
-    public override void OnInit()
+    public class UIModelSettings : UIModel<UIViewSettings>
     {
-        _view.OnExitClick += ReturnToPauseOrMenu;
-        _view.OnFullscreenToggle += ToggleFullscreen;
-        _view.OnMusicSliderChanged += ChangeMusicVolume;
-        _view.OnSoundSliderChanged += ChangeSoundVolume;
-        _view.OnResolutionIndexChanged += ChangeResolution;
-    }
+        [Inject] private ISettingsSystem _settings;
 
-    public override void OnShow()
-    {
-        _view.InitializeView(_settings.Fullscreen,
-            _settings.MusicVolume, _settings.SoundVolume,
-            _settings.Resolutions,
-            _settings.GetIndexByResolution(_settings.Resolution));
-    }
+        public override string ViewName => "UI/Settings";
 
-    public override void OnHide()
-    {
-        _settings.SaveSettings();
-    }
+        private IUIModel _modelToOpenAfterClose = null;
 
-    public void SetModelToOpenAfterClose(IUIModel model)
-    {
-        _modelToOpenAfterClose = model;
-    }
-
-    public void ReturnToPauseOrMenu()
-    {
-        _uiSystem.Hide(this).Forget();
-
-        if (_modelToOpenAfterClose != null)
+        public override void OnInit()
         {
-            _uiSystem.Show(_modelToOpenAfterClose).Forget();
+            _view.OnExitClick += ReturnToPauseOrMenu;
+            _view.OnFullscreenToggle += ToggleFullscreen;
+            _view.OnMusicSliderChanged += ChangeMusicVolume;
+            _view.OnSoundSliderChanged += ChangeSoundVolume;
+            _view.OnResolutionIndexChanged += ChangeResolution;
         }
-    }
 
-    public void ToggleFullscreen(bool value)
-    {
-        _settings.SetFullscreenMode(value);
-    }
+        public override void OnShow()
+        {
+            _view.InitializeView(_settings.Fullscreen,
+                _settings.MusicVolume, _settings.SoundVolume,
+                _settings.Resolutions,
+                _settings.GetIndexByResolution(_settings.Resolution));
+        }
 
-    public void ChangeMusicVolume(float value)
-    {
-        _settings.SetMusicVolume(value);
-    }
+        public override void OnHide()
+        {
+            _settings.SaveSettings();
+        }
 
-    public void ChangeSoundVolume(float value)
-    {
-        _settings.SetSoundVolume(value);
-    }
+        public override void OnEscape()
+        {
+            ReturnToPauseOrMenu();
+        }
 
-    public void ChangeResolution(int index)
-    {
-        _settings.SetResolution(_settings.GetResolutionByIndex(index));
+        public void SetModelToOpenAfterClose(IUIModel model)
+        {
+            _modelToOpenAfterClose = model;
+        }
+
+        private void ReturnToPauseOrMenu()
+        {
+            _uiSystem.Hide(this).Forget();
+
+            if (_modelToOpenAfterClose != null)
+            {
+                _uiSystem.Show(_modelToOpenAfterClose).Forget();
+            }
+        }
+
+        private void ToggleFullscreen(bool value)
+        {
+            _settings.SetFullscreenMode(value);
+        }
+
+        private void ChangeMusicVolume(float value)
+        {
+            _settings.SetMusicVolume(value);
+        }
+
+        private void ChangeSoundVolume(float value)
+        {
+            _settings.SetSoundVolume(value);
+        }
+
+        private void ChangeResolution(int index)
+        {
+            _settings.SetResolution(_settings.GetResolutionByIndex(index));
+        }
     }
 }

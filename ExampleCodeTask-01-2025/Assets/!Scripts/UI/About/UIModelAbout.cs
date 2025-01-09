@@ -1,20 +1,29 @@
 using Cysharp.Threading.Tasks;
+using UI.Views;
 using Zenject;
 
-public class UIModelAbout : UIModel<UIViewAbout>
+namespace UI.Models
 {
-    [Inject] private UIModelMenu _menu;
-
-    public override string ViewName => "UI/About";
-
-    public override void OnInit()
+    public class UIModelAbout : UIModel<UIViewAbout>
     {
-        _view.OnExitClick += Exit;
-    }
+        [Inject] private UIModelMenu _menu;
 
-    public void Exit()
-    {
-        _uiSystem.Hide(this).Forget();
-        _uiSystem.Show(_menu).Forget();
+        public override string ViewName => "UI/About";
+
+        public override void OnInit()
+        {
+            _view.OnExitClick += Exit;
+        }
+
+        public override void OnEscape()
+        {
+            Exit();
+        }
+
+        public void Exit()
+        {
+            _uiSystem.Hide(this).Forget();
+            _uiSystem.Show(_menu).Forget();
+        }
     }
 }

@@ -1,4 +1,7 @@
-public class UIViewLoading : UIViewFadable
+namespace UI.Views
 {
+    public class UIViewLoading : UIViewFadable
+    {
     
+    }
 }

@@ -1,60 +1,83 @@
 using Cysharp.Threading.Tasks;
+using Logic.Systems;
+using UI.Views;
+using UnityEngine;
 using Zenject;
 
-public class UIModelHud : UIModel<UIViewHud>
+namespace UI.Models
 {
-    private const float TEXT_ANIMATION_TIME = 1f;
-
-    [Inject] private UIModelPause _pause;
-    [Inject] private IGameScoreSystem _scoreSystem;
-    [Inject] private IPlayerMovementSystem _playerMovementSystem;
-
-    public override string ViewName => "UI/Hud";
-
-    public override void OnInit()
+    public class UIModelHud : UIModel<UIViewHud>
     {
-        _view.OnMenuClick += TryOpenPause;
-    }
+        private const float TEXT_STAY_TIME = 1f;
+        private const float TEXT_ANIMATION_TIME = 1f;
+        private const float SYMBOL_STAY_TIME = 0.02f;
 
-    public override void OnShow()
-    {
-        _view.SetScreenPrompt(string.Empty);
-        UpdateScore(_scoreSystem.Score);
-        _scoreSystem.OnScoreChanged += UpdateScore;
-    }
+        [Inject] private UIModelPause _pause;
+        [Inject] private IGameScoreSystem _scoreSystem;
+        [Inject] private IPlayerMovementSystem _playerMovementSystem;
 
-    public override void OnHide()
-    {
-        _scoreSystem.OnScoreChanged -= UpdateScore;
-    }
+        private bool _promptAnimating = false;
 
-    public async UniTask AnimateStartPrompt(string startPrompt)
-    {
-        await UniTask.WaitWhile(() =>!_uiSystem.IsShown(this));
+        public override string ViewName => "UI/Hud";
 
-        _view.SetScreenPrompt(startPrompt);
-
-        await _view.AnimatePromptColor(TEXT_ANIMATION_TIME);
-    }
-
-    private void TryOpenPause()
-    {
-        if (!CanOpenPause())
+        public override void OnInit()
         {
-            return;
+            _view.OnMenuClick += TryOpenPause;
         }
 
-        _uiSystem.Hide(this).Forget();
-        _uiSystem.Show(_pause).Forget();
-    }
+        public override void OnShow()
+        {
+            _view.SetScreenPrompt(string.Empty);
+            UpdateScore(_scoreSystem.Score);
+            _scoreSystem.OnScoreChanged += UpdateScore;
 
-    private void UpdateScore(int score)
-    {
-        _view.SetScoreText(score.ToString());
-    }
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
 
-    private bool CanOpenPause()
-    {
-        return _playerMovementSystem.CanMove;
+        public override void OnHide()
+        {
+            _scoreSystem.OnScoreChanged -= UpdateScore;
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+
+        public override void OnEscape()
+        {
+            TryOpenPause();
+        }
+
+        public async UniTask AnimateStartPrompt(string startPrompt)
+        {
+            _promptAnimating = true;
+            _view.SetScreenPrompt(startPrompt);
+
+            await _view.AnimatePromptColor(TEXT_STAY_TIME +
+                SYMBOL_STAY_TIME * startPrompt.Length, TEXT_ANIMATION_TIME);
+
+            _promptAnimating = false;
+        }
+
+        private void TryOpenPause()
+        {
+            if (!CanOpenPause())
+            {
+                return;
+            }
+
+            _uiSystem.Hide(this).Forget();
+            _uiSystem.Show(_pause).Forget();
+        }
+
+        private void UpdateScore(int score)
+        {
+            _view.SetScoreText(score.ToString());
+        }
+
+        private bool CanOpenPause()
+        {
+            return _playerMovementSystem.CanMove && !_promptAnimating;
+        }
     }
 }

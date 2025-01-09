@@ -5,33 +5,37 @@ using TMPro;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
 
-public class UIViewHud : UIViewFadable
+namespace UI.Views
 {
-    [Header("Hud")]
-    [SerializeField] private Button _exitBtn;
-    [SerializeField] private TMP_Text _score;
-    [SerializeField] private TMP_Text _screenPrompt;
-
-    public event Action OnMenuClick;
-
-    private void Awake()
+    public class UIViewHud : UIViewFadable
     {
-        _exitBtn.onClick.AddListener(() => OnMenuClick?.Invoke());
-    }
+        [Header("Hud")]
+        [SerializeField] private Button _exitBtn;
+        [SerializeField] private TMP_Text _score;
+        [SerializeField] private TMP_Text _screenPrompt;
 
-    public void SetScoreText(string text)
-    {
-        _score.text = text;
-    }
+        public event Action OnMenuClick;
 
-    public void SetScreenPrompt(string text)
-    {
-        _screenPrompt.text = text;
-    }
+        private void Awake()
+        {
+            _exitBtn.onClick.AddListener(() => OnMenuClick?.Invoke());
+        }
 
-    public async UniTask AnimatePromptColor(float duration)
-    {
-        await _screenPrompt.DOFade(0f, duration).
-            From(1f).AsyncWaitForCompletion();
+        public void SetScoreText(string text)
+        {
+            _score.text = text;
+        }
+
+        public void SetScreenPrompt(string text)
+        {
+            _screenPrompt.text = text;
+        }
+
+        public async UniTask AnimatePromptColor(float stayDuration, float animateDuration)
+        {
+            await _screenPrompt.DOFade(1f, 0f).AsyncWaitForCompletion();
+            await UniTask.WaitForSeconds(stayDuration);
+            await _screenPrompt.DOFade(0f, animateDuration).AsyncWaitForCompletion();
+        }
     }
 }

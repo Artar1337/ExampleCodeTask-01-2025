@@ -1,9 +1,12 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public class SoundData
+namespace Data
 {
-    public SoundType Type;
-    public AudioClip Clip;
+    [Serializable]
+    public class SoundData
+    {
+        public SoundType Type;
+        public AudioClip Clip;
+    }
 }

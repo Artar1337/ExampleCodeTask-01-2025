@@ -23,28 +23,14 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 250018172928
-    m_Localized: 'The game was made as a demo project by Artem Maksimovich Astrakhancev,
+    m_Localized: "The game was made as a demo project by Artem Maksimovich Astrakhancev,
       Unity developer. If you have any questions or suggestions (in particular, an
-      offer to hire me <sprite index=7>) - contact me in <color=#3333FF><link="https://t.me/artar1337">Telegram</link></color>,
-      or by mail <color=#3333FF><link="mailto:armastra@gmail.com">armastra@gmail.com</link></color>
-
-
-      Creative
-      Commons Attribution 4.0 License for the use of the track Manic Polka and Dead
-      Drop (artist: Kevin MacLeod):
-
-      <color=#3333FF><link="https://creativecommons.org/licenses/by/4.0/">https://creativecommons.org/licenses/by/4.0/</link></color>
-
-      Sources:
-
-      <color=#3333FF><link="http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100168">http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100168</link></color>
-
-      <color=#3333FF><link="http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100264">http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100264</link></color>
-
-      Music
-      author:
-
-      <color=#3333FF><link="http://incompetech.com/">http://incompetech.com/</link></color>'
+      offer to hire me <sprite index=7>) - contact me in <color=#3333FF><link=\"https://t.me/artar1337\">Telegram</link></color>,
+      or by mail <color=#3333FF><link=\"mailto:armastra@gmail.com\">armastra@gmail.com</link></color>.
+      \u041Cy CV <color=#3333FF><link=\"https://drive.google.com/file/d/1MF2MB6E3YIOMre1TBe9yg7rHgYVL1oU0/view?usp=sharing\">is
+      here</link></color>.\r\n\r\nCreative Commons Attribution 4.0 License for the
+      use of the track Manic Polka and Dead Drop (artist: Kevin MacLeod):\r\n<color=#3333FF><link=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</link></color>\r\nSources:\r\n<color=#3333FF><link=\"http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100168\">http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100168</link></color>\r\n<color=#3333FF><link=\"http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100264\">http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100264</link></color>\r\nMusic
+      author:\r\n<color=#3333FF><link=\"http://incompetech.com/\">http://incompetech.com/</link></color>"
     m_Metadata:
       m_Items: []
   - m_Id: 603740606464
@@ -129,6 +115,17 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 41549152817152
     m_Localized: START!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 303029643284480
+    m_Localized: 'Controls:
+
+      - W,A,S,D (arrows) - move
+
+      - SPACE - jump
+
+      -
+      ESC - pause'
     m_Metadata:
       m_Items: []
   references:

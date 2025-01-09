@@ -35,12 +35,13 @@ MonoBehaviour:
       <sprite index=7>) - \u0441\u0432\u044F\u0436\u0438\u0442\u0435\u0441\u044C
       \u0441\u043E \u043C\u043D\u043E\u0439 \u0432 <color=#3333FF><link=\"https://t.me/artar1337\">Telegram</link></color>,
       \u043B\u0438\u0431\u043E \u0447\u0435\u0440\u0435\u0437 \u043F\u043E\u0447\u0442\u0443
-      <color=#3333FF><link=\"mailto:armastra@gmail.com\">armastra@gmail.com</link></color>\n\n\u041B\u0438\u0446\u0435\u043D\u0437\u0438\u044F
+      <color=#3333FF><link=\"mailto:armastra@gmail.com\">armastra@gmail.com</link></color>.
+      \u041C\u043E\u0451 CV <color=#3333FF><link=\"https://drive.google.com/file/d/1MF2MB6E3YIOMre1TBe9yg7rHgYVL1oU0/view?usp=sharing\">\u0442\u0443\u0442</link></color>.\r\n\r\n\u041B\u0438\u0446\u0435\u043D\u0437\u0438\u044F
       Creative Commons Attribution 4.0 \u043D\u0430 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435
       \u0442\u0440\u0435\u043A\u0430 Manic Polka \u0438 Dead Drop (\u0438\u0441\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C:
-      Kevin MacLeod): \n<color=#3333FF><link=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</link></color>\r\n\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0438:
-      \n<color=#3333FF><link=\"http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100168\">http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100168</link></color>\n<color=#3333FF><link=\"http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100264\">http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100264</link></color>\r\n\u0418\u0441\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C:
-      \n<color=#3333FF><link=\"http://incompetech.com/\">http://incompetech.com/</link></color>\r\r\n"
+      Kevin MacLeod): \r\n<color=#3333FF><link=\"https://creativecommons.org/licenses/by/4.0/\">https://creativecommons.org/licenses/by/4.0/</link></color>\r\n\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0438:
+      \r\n<color=#3333FF><link=\"http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100168\">http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100168</link></color>\r\n<color=#3333FF><link=\"http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100264\">http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100264</link></color>\r\n\u0418\u0441\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C:
+      \r\n<color=#3333FF><link=\"http://incompetech.com/\">http://incompetech.com/</link></color>"
     m_Metadata:
       m_Items: []
   - m_Id: 603740606464
@@ -129,6 +130,12 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 41549152817152
     m_Localized: "\u041D\u0410\u0427\u0410\u041B\u0418!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 303029643284480
+    m_Localized: "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435:\n-
+      W,A,S,D (\u0441\u0442\u0440\u0435\u043B\u043E\u0447\u043A\u0438) - \u043F\u0435\u0440\u0435\u043C\u0435\u0449\u0435\u043D\u0438\u0435\n-
+      SPACE - \u043F\u0440\u044B\u0436\u043E\u043A\n- ESC - \u043F\u0430\u0443\u0437\u0430"
     m_Metadata:
       m_Items: []
   references:

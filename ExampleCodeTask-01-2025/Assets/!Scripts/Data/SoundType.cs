@@ -1,15 +1,18 @@
-public enum SoundType
+namespace Data
 {
-    None = 0,
-    Jump,
-    Land,
-    Roll,
-    GameOver,
-    UIHover,
-    UIClick,
-    UIShow,
-    UIHide,
-    MenuMusic,
-    GameplayMusic,
-    Teleportation
+    public enum SoundType
+    {
+        None = 0,
+        Jump,
+        Land,
+        Roll,
+        GameOver,
+        UIHover,
+        UIClick,
+        UIShow,
+        UIHide,
+        MenuMusic,
+        GameplayMusic,
+        Teleportation
+    }
 }

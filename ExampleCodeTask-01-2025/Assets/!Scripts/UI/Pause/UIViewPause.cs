@@ -2,21 +2,24 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIViewPause : UIViewFadable
+namespace UI.Views
 {
-    [Header("Pause")]
-    [SerializeField] private Button _startBtn;
-    [SerializeField] private Button _settingsBtn;
-    [SerializeField] private Button _exitBtn;
-
-    public event Action OnStartClick;
-    public event Action OnSettingsClick;
-    public event Action OnExitClick;
-
-    private void Awake()
+    public class UIViewPause : UIViewFadable
     {
-        _startBtn.onClick.AddListener(() => OnStartClick?.Invoke());
-        _settingsBtn.onClick.AddListener(() => OnSettingsClick?.Invoke());
-        _exitBtn.onClick.AddListener(() => OnExitClick?.Invoke());
+        [Header("Pause")]
+        [SerializeField] private Button _startBtn;
+        [SerializeField] private Button _settingsBtn;
+        [SerializeField] private Button _exitBtn;
+
+        public event Action OnStartClick;
+        public event Action OnSettingsClick;
+        public event Action OnExitClick;
+
+        private void Awake()
+        {
+            _startBtn.onClick.AddListener(() => OnStartClick?.Invoke());
+            _settingsBtn.onClick.AddListener(() => OnSettingsClick?.Invoke());
+            _exitBtn.onClick.AddListener(() => OnExitClick?.Invoke());
+        }
     }
 }

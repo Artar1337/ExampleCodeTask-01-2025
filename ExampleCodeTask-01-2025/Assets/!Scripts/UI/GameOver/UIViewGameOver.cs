@@ -3,26 +3,29 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIViewGameOver : UIViewFadable
+namespace UI.Views
 {
-    [Header("Game over")]
-    [SerializeField] private TMP_Text _hiScoreText;
-    [SerializeField] private TMP_Text _scoreText;
-    [SerializeField] private Button _againBtn;
-    [SerializeField] private Button _toMenuBtn;
-
-    public event Action OnAgainClick;
-    public event Action OnExitClick;
-
-    private void Awake()
+    public class UIViewGameOver : UIViewFadable
     {
-        _againBtn.onClick.AddListener(() => OnAgainClick?.Invoke());
-        _toMenuBtn.onClick.AddListener(() => OnExitClick?.Invoke());
-    }
+        [Header("Game over")]
+        [SerializeField] private TMP_Text _hiScoreText;
+        [SerializeField] private TMP_Text _scoreText;
+        [SerializeField] private Button _againBtn;
+        [SerializeField] private Button _toMenuBtn;
 
-    public void SetScoresText(string hiscore, string score)
-    {
-        _hiScoreText.text = hiscore;
-        _scoreText.text = score;
+        public event Action OnAgainClick;
+        public event Action OnExitClick;
+
+        private void Awake()
+        {
+            _againBtn.onClick.AddListener(() => OnAgainClick?.Invoke());
+            _toMenuBtn.onClick.AddListener(() => OnExitClick?.Invoke());
+        }
+
+        public void SetScoresText(string hiscore, string score)
+        {
+            _hiScoreText.text = hiscore;
+            _scoreText.text = score;
+        }
     }
 }

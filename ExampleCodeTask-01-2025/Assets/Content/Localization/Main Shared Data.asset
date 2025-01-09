@@ -107,6 +107,10 @@ MonoBehaviour:
     m_Key: StartPrompt
     m_Metadata:
       m_Items: []
+  - m_Id: 303029643284480
+    m_Key: ControlsPrompt
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

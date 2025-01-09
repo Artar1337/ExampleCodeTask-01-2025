@@ -1,56 +1,66 @@
 using Cysharp.Threading.Tasks;
 using Zenject;
+using UI.Views;
+using Logic.Systems;
 
-public class UIModelPause : UIModel<UIViewPause>
+namespace UI.Models
 {
-    public override string ViewName => "UI/Pause";
-
-    [Inject] private UIModelSettings _settingsModel;
-    [Inject] private UIModelPopup _popupModel;
-    [Inject] private UIModelHud _hudModel;
-    [Inject] private IGameCycleSystem _gameCycleSystem;
-
-    public override void OnInit()
+    public class UIModelPause : UIModel<UIViewPause>
     {
-        _view.OnExitClick += OpenExitConfirmation;
-        _view.OnSettingsClick += OpenSettings;
-        _view.OnStartClick += Start;
-    }
+        public override string ViewName => "UI/Pause";
 
-    public override void OnShow()
-    {
-        _gameCycleSystem.SetPause(true);
-    }
+        [Inject] private UIModelSettings _settingsModel;
+        [Inject] private UIModelPopup _popupModel;
+        [Inject] private UIModelHud _hudModel;
+        [Inject] private IGameCycleSystem _gameCycleSystem;
 
-    public void Start()
-    {
-        _uiSystem.Hide(this).Forget();
-        _uiSystem.Show(_hudModel).Forget();
-        _gameCycleSystem.SetPause(false);
-    }
+        public override void OnInit()
+        {
+            _view.OnExitClick += OpenExitConfirmation;
+            _view.OnSettingsClick += OpenSettings;
+            _view.OnStartClick += Start;
+        }
 
-    public void OpenSettings()
-    {
-        _uiSystem.Hide(this).Forget();
-        _settingsModel.SetModelToOpenAfterClose(this);
-        _uiSystem.Show(_settingsModel).Forget();
-    }
+        public override void OnShow()
+        {
+            _gameCycleSystem.SetPause(true);
+        }
 
-    public void OpenExitConfirmation()
-    {
-        _uiSystem.Hide(this).Forget();
+        public override void OnEscape()
+        {
+            Start();
+        }
 
-        _popupModel.Init("Exit".Localize(),
-            "ExitMenuConfirmText".Localize(),
-            () =>
-            {
-                _gameCycleSystem.EndGame();
-            },
-            () =>
-            {
-                _uiSystem.Show(this).Forget();
-            });
+        private void Start()
+        {
+            _uiSystem.Hide(this).Forget();
+            _uiSystem.Show(_hudModel).Forget();
+            _gameCycleSystem.SetPause(false);
+        }
 
-        _uiSystem.Show(_popupModel).Forget();
+        private void OpenSettings()
+        {
+            _uiSystem.Hide(this).Forget();
+            _settingsModel.SetModelToOpenAfterClose(this);
+            _uiSystem.Show(_settingsModel).Forget();
+        }
+
+        private void OpenExitConfirmation()
+        {
+            _uiSystem.Hide(this).Forget();
+
+            _popupModel.Init("Exit".Localize(),
+                "ExitMenuConfirmText".Localize(),
+                () =>
+                {
+                    _gameCycleSystem.EndGame();
+                },
+                () =>
+                {
+                    _uiSystem.Show(this).Forget();
+                });
+
+            _uiSystem.Show(_popupModel).Forget();
+        }
     }
 }
